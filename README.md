@@ -196,5 +196,63 @@ pipeline {
                 bat "mvn package -f mw/pom.xml"
             }
         }
+
+
+
+
+
+
+
+
+        Credentials
+        pipeline {
+    agent any
+
+    tools {
+        maven 'MAVEN_HOME'
+    }
+
+    stages {
+
+        stage('Git Clone & Clean') {
+            steps {
+                bat "if exist mw rmdir /s /q mw"
+                bat "git clone https://github.com/ravindranadh022/mw.git"
+                bat "mvn clean -f mw/pom.xml"
+            }
+        }
+
+        stage('Install') {
+            steps {
+                bat "mvn install -f mw/pom.xml"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat "mvn test -f mw/pom.xml"
+            }
+        }
+
+        stage('Package') {
+            steps {
+                bat "mvn package -f mw/pom.xml"
+            }
+        }
+
+        stage('Deploy to Tomcat') {
+            steps {
+                deploy adapters: [
+                    tomcat9(
+                        credentialsId: '19123888-cd0f-4f03-90da-78951963782f',
+                        url: 'http://localhost:8083'
+                    )
+                ],
+                contextPath: 'mw',
+                war: 'mw/target/*.war'
+            }
+        }
+    }
+}
     }
 }
