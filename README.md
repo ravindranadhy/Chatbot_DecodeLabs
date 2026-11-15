@@ -196,6 +196,7 @@ pipeline {
                 bat "mvn package -f mw/pom.xml"
             }
         }
+}
 
 
 
@@ -203,8 +204,7 @@ pipeline {
 
 
 
-
-        Credentials
+Credentials
         pipeline {
     agent any
 
@@ -255,4 +255,39 @@ pipeline {
     }
 }
     }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+minikube start --driver=docker
+minikube status
+kubectl get pods
+kubectl get deployments
+kubectl get services
+kubectl get replicasets
+kubectl get nodes
+kubectl get all
+kubectl create deployment mynginx --image=nginx
+kubectl get pods
+kubectl get deployments
+kubectl get services
+kubectl describe pods
+kubectl expose deployment mynginx --type=NodePort --port=80 --target-port=80
+kubectl scale deployment mynginx --replicas=4
+kubectl get pods
+kubectl port-forward svc/mynginx 8084:80
