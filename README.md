@@ -291,3 +291,17 @@ kubectl expose deployment mynginx --type=NodePort --port=80 --target-port=80
 kubectl scale deployment mynginx --replicas=4
 kubectl get pods
 kubectl port-forward svc/mynginx 8084:80
+
+
+Nagios
+docker pull jasonrivers/nagios:latest
+
+docker run --name nagiosdemo -p 8888:80 jasonrivers/nagios:latest
+
+docker stop nagiosdemo
+
+docker rm nagiosdemo
+
+docker images
+
+docker rmi jasonrivers/nagios:latest
